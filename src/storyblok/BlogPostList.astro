@@ -40,7 +40,7 @@ const { blok } = Astro.props;
       }) => (
         <li class="flex flex-col border border-neutral-300 rounded-2xl my-24 items-center justify-center p-8">
           <time class="text-xs text-neutral-500">{post.date}</time>
-          <a href={post.slug} class="text-blue-600 text-2xl font-bold">{post.title}</a>
+          <a href={post.slug} class="text-blue-600 text-2xl font-bold flex">{post.title} <span class="text-sm text-neutral-500">click title<span></a>
           <p class="text-sm text-neutral-500">{post.description}</p>
         </li>
       )
