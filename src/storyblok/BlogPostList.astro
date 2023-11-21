@@ -1,12 +1,17 @@
 ---
-import { storyblokEditable } from "@storyblok/astro";
-import { useStoryblokApi } from "@storyblok/astro";
+import { storyblokEditable, useStoryblokApi } from "@storyblok/astro";
+import isPreview from '../utils/isPreview'
+
+const { blok, language } = Astro.props
+
+
 
 const storyblokApi = useStoryblokApi();
 
 const { data } = await storyblokApi.get("cdn/stories", {
-  version: import.meta.env.DEV ? "draft" : "published",
+  version: isPreview() ? 'draft' : 'published',
   content_type: "blogPost",
+  language
 });
 
 const posts = data.stories.map(
@@ -26,7 +31,7 @@ const posts = data.stories.map(
   }
 );
 
-const { blok } = Astro.props;
+
 ---
 
 <ul {...storyblokEditable(blok)}>
