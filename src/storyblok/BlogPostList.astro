@@ -38,10 +38,10 @@ const { blok } = Astro.props;
         title: unknown;
         description: unknown;
       }) => (
-        <li>
-          <time>{post.date}</time>
-          <a href={post.slug}>{post.title}</a>
-          <p>{post.description}</p>
+        <li class="flex flex-col border border-neutral-300 rounded-2xl">
+          <time class="text-xs text-neutral-500">{post.date}</time>
+          <a href={post.slug} class="text-blue-600 text-2xl">{post.title}</a>
+          <p class="text-sm text-neutral-500">{post.description}</p>
         </li>
       )
     )
