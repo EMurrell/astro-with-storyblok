@@ -12,28 +12,31 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [storyblok({
-    accessToken: env.STORYBLOK_TOKEN,
-    bridge: env.STORYBLOK_IS_PREVIEW === "yes",
-    components: {
-      // Add your components here. The component paths are relative to the src directory. For example, if your component is located at src/storyblok/MyComponent.astro, the path would be storyblok/MyComponent (without the .astro extension).
-      blogPost: "storyblok/BlogPost",
-      blogPostList: "storyblok/BlogPostList",
-      page: "storyblok/Page"
-    },
-    apiOptions: {
-      // Choose your Storyblok space region
-      region: "us" // optional,  or 'eu' (default)
-    }
-  }), tailwind()],
+  adapter: vercel(),
   output: env.STORYBLOK_IS_PREVIEW === "yes" ? "server" : "static",
   ...(env.STORYBLOK_ENV === "development" && {
     vite: {
       plugins: [basicSsl()],
       server: {
-        https: true
-      }
-    }
+        https: true,
+      },
+    },
   }),
-  adapter: vercel()
+  integrations: [
+    storyblok({
+      accessToken: env.STORYBLOK_TOKEN,
+      bridge: env.STORYBLOK_IS_PREVIEW === "yes",
+      components: {
+        // Add your components here. The component paths are relative to the src directory. For example, if your component is located at src/storyblok/MyComponent.astro, the path would be storyblok/MyComponent (without the .astro extension).
+        blogPost: "storyblok/BlogPost",
+        blogPostList: "storyblok/BlogPostList",
+        page: "storyblok/Page",
+      },
+      apiOptions: {
+        // Choose your Storyblok space region
+        region: "us", // optional,  or 'eu' (default)
+      },
+    }),
+    tailwind(),
+  ],
 });
