@@ -1,19 +1,11 @@
 ---
-import { storyblokEditable, useStoryblokApi } from "@storyblok/astro";
-import isPreview from '../utils/isPreview'
-
-const { blok, language } = Astro.props
-
-
-
+import { storyblokEditable } from "@storyblok/astro";
+import { useStoryblokApi } from "@storyblok/astro";
 const storyblokApi = useStoryblokApi();
-
 const { data } = await storyblokApi.get("cdn/stories", {
-  version: isPreview() ? 'draft' : 'published',
+  version: import.meta.env.DEV ? "draft" : "published",
   content_type: "blogPost",
-  language
 });
-
 const posts = data.stories.map(
   (story: {
     content: { title: any; description: any };
@@ -30,10 +22,8 @@ const posts = data.stories.map(
     };
   }
 );
-
-
+const { blok } = Astro.props;
 ---
-
 <ul {...storyblokEditable(blok)}>
   {
     posts.map(
@@ -43,9 +33,11 @@ const posts = data.stories.map(
         title: unknown;
         description: unknown;
       }) => (
+        <li class="flex flex-col border border-neutral-300 rounded-2xl">
         <li class="flex flex-col border border-neutral-300 rounded-2xl my-24 items-center justify-center p-8 bg-sky-100">
           <time class="text-xs text-neutral-500">{post.date}</time>
-          <a href={post.slug} class="text-blue-600 text-2xl font-bold flex">{post.title} <span class="text-sm text-neutral-500">click title<span></a>
+         
+          <a href={post.slug} class="text-blue-600 text-2xl font-bold">{post.title}</a>
           <p class="text-sm text-neutral-500">{post.description}</p>
         </li>
       )
