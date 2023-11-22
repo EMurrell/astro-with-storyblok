@@ -2,14 +2,10 @@
 import { useStoryblokApi } from "@storyblok/astro";
 // @ts-ignore
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-// @ts-ignore
-import BaseLayout from "../layouts/BaseLayout.astro";
-// @ts-ignore
-import parseUrl from "../utils/parseUrl";
-// @ts-ignore
-import isPreview from "../utils/isPreview";
-// @ts-ignore
-import generateStaticPaths from "../utils/generateStaticPaths";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import parseUrl from "../../utils/parseUrl";
+import isPreview from "../../utils/isPreview";
+import generateStaticPaths from "../../utils/generateStaticPaths";
 
 // export async function getStaticPaths() {
 //   const sbApi = useStoryblokApi();
