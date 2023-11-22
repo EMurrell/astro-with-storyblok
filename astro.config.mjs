@@ -3,17 +3,16 @@ import storyblok from "@storyblok/astro";
 import { loadEnv } from "vite";
 // add this for visual editor to work in dev mode:
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import vercel from "@astrojs/vercel/serverless";
 const env = loadEnv("", process.cwd(), "STORYBLOK");
 // Since the Astro config file does not normally support environment variables, use the loadEnv function from Vite to load them.
 
 import tailwind from "@astrojs/tailwind";
 
-import vercel from "@astrojs/vercel/serverless";
-
 // https://astro.build/config
 export default defineConfig({
   adapter: vercel(),
-  output: env.STORYBLOK_IS_PREVIEW === "yes" ? "server" : "static",
+  output: env.STORYBLOK_IS_PREVIEW === "yes" ? "server" : "hybrid",
   ...(env.STORYBLOK_ENV === "development" && {
     vite: {
       plugins: [basicSsl()],
@@ -40,3 +39,4 @@ export default defineConfig({
     tailwind(),
   ],
 });
+
