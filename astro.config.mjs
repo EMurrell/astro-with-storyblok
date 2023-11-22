@@ -11,6 +11,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://astro-with-storyblok.vercel.app",
   adapter: vercel(),
   output: "server",
   integrations: [
