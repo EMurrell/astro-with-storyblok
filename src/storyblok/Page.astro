@@ -1,7 +1,17 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-const { blok } = Astro.props;
+let blok = Astro.props.blok;
+
+async function fetchStoryblokData() {
+  const response = await fetch(
+    "https://api.storyblok.com/v1/cdn/stories/your-story?version=published&token=r8ARGrmAqSgFOpO7EAIOKwtt"
+  );
+  const data = await response.json();
+  blok = data.story.content;
+}
+
+fetchStoryblokData();
 ---
 
 <main {...storyblokEditable(blok)}>

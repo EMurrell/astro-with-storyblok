@@ -16,6 +16,7 @@ export default defineConfig({
   output: "server",
   integrations: [
     storyblok({
+      bridge: true,
       accessToken: env.STORYBLOK_TOKEN,
       // bridge: env.STORYBLOK_IS_PREVIEW === "yes",
       components: {
