@@ -4,9 +4,17 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 const storyblokApi = useStoryblokApi();
 const slug = Astro.params.slug;
 let content;
+let url = new URL(Astro.request.url);
+try {
+  const searchParams = url.searchParams;
+  // Your code here
+} catch (error) {
+  // Your error handling code here
+}
+let version = url.searchParams.get("version") || "published";
 try {
   const { data } = await storyblokApi.get(`cdn/stories/blog/${slug}`, {
-    version: import.meta.env.DEV ? "draft" : "published",
+    version: version as "published" | "draft" | undefined,
   });
   content = data.story.content;
 } catch (error) {
